@@ -23,7 +23,7 @@ public class Customer {
 	private String password;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date creation;
+	private Date creation = new Date(System.currentTimeMillis());
 
 	public Integer getId() {
 		return id;
