@@ -40,7 +40,7 @@ public class Order {
 	@JoinColumn(name = "store_id")
 	private Store store;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
 	private List<OrderItem> orderItems;
 	
 	private Double total;

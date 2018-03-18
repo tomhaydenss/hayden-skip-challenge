@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,7 +23,11 @@ public class Store {
 	private String description;
 	private String address;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToOne
+	@JoinColumn(name = "cousine_id")
+	private Cousine cousine;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "store")
 	private List<Product> products;
 
 	public Integer getId() {
@@ -62,6 +68,14 @@ public class Store {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Cousine getCousine() {
+		return cousine;
+	}
+
+	public void setCousine(Cousine cousine) {
+		this.cousine = cousine;
 	}
 
 }
