@@ -35,7 +35,7 @@ public class OrderItem {
 	public Product getProduct() {
 		return product;
 	}
-	EAGER
+
 	public void setProduct(Product product) {
 		this.product = product;
 	}
