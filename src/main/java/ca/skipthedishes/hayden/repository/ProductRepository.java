@@ -13,4 +13,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p WHERE p.name LIKE %:text% OR p.description LIKE %:text%")
 	List<Product> findAllByText(@Param("text") String text);
 
+	@Query("SELECT p FROM Product p INNER JOIN p.store s WHERE s.id = :storeId")
+	List<Product> findAllByStoreId(@Param("storeId") Integer storeId);
+
 }

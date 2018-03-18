@@ -41,5 +41,12 @@ public class ProductController {
 	            .map( product -> ResponseEntity.ok().body(product) )
 	            .orElseGet( () -> ResponseEntity.notFound().build() );
 	}
+	
+	
+	@RequestMapping(value = "/api/v1/Store/{storeId}/products", method = RequestMethod.GET, produces = "application/json")
+	public List<ProductResponse> findByStoreId(@PathVariable Integer storeId) {
+
+		return service.findByStoreId(storeId);
+	}
 
 }

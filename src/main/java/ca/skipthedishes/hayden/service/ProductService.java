@@ -39,4 +39,12 @@ public class ProductService {
 		return result;
 	}
 
+	public List<ProductResponse> findByStoreId(Integer storeId) {
+		List<ProductResponse> result = ((List<Product>) repository.findAllByStoreId(storeId)).stream().map(item -> {
+			ProductResponse detached = toProductResponse(item);
+			return detached;
+		}).collect(Collectors.toList());
+		return result;
+	}
+
 }
