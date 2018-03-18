@@ -20,34 +20,34 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "orders")
 public class Order {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
-	
+
 	private String deliveryAddress;
-	
+
 	private String contact;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "store_id")
 	private Store store;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
 	private List<OrderItem> orderItems;
-	
+
 	private Double total;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdate;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private Status status;
 
@@ -130,5 +130,5 @@ public class Order {
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-	
+
 }
