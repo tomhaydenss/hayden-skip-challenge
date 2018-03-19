@@ -1,8 +1,10 @@
 package ca.skipthedishes.hayden.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,7 +28,7 @@ public class Order {
 	private Integer id;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
+	private Date date = new Date(System.currentTimeMillis());
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
@@ -40,13 +42,13 @@ public class Order {
 	@JoinColumn(name = "store_id")
 	private Store store;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-	private List<OrderItem> orderItems;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.PERSIST)
+	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
 	private Double total;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date lastUpdate;
+	private Date lastUpdate = new Date(System.currentTimeMillis());
 
 	@Enumerated(EnumType.ORDINAL)
 	private Status status;
@@ -105,6 +107,11 @@ public class Order {
 
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
+	}
+
+	public boolean add(OrderItem orderItem) {
+		orderItem.setOrder(this);
+		return orderItems.add(orderItem);
 	}
 
 	public Double getTotal() {
